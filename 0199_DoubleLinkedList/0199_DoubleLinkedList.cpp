@@ -105,4 +105,88 @@ void deleteNode()
 		return;
 	}
 
-	
+	if (current == START)
+	{
+		START = START->next;
+		if (START != NULL)
+		{
+			START->prev = NULL;
+		}
+	}
+	else
+	{
+		previous->next = current->next;
+		if (current->next != NULL)
+		{
+			current->next->prev = previous;
+		}
+	}
+
+	delete current;
+	cout << "\x1b[32mRecord with roll number " << rollNo << " deleted\x1b{0m" << endl;
+
+}
+
+bool listEmpty()
+{
+	return (START == NULL);
+}
+
+void traverse()
+{
+	if (listEmpty())
+		cout << "\nList is empty" << endl;
+	else
+	{
+		cout << "\nRecords in ascending order of roll number are:" << endl;
+		Node* currentNode = START;
+		while (currentNode != NULL)
+		{
+			cout << currentNode->noMhs << " " << currentNode->name << endl;
+			currentNode = currentNode->next;
+		}
+	}
+}
+
+void revtraverse()
+{
+	if (listEmpty())
+		cout << "\nList is empty" << endl;
+	else
+	{
+		cout << "\nRecords is descending order of roll number are: " << endl;
+		Node* currentNode = START;
+		while (currentNode->next != NULL)
+			currentNode = currentNode->next;
+
+		while (currentNode != NULL)
+		{
+			cout << currentNode->noMhs << " " << currentNode->name << endl;
+			currentNode = currentNode->prev;
+		}
+	}
+}
+
+void searchData()
+{
+	if (listEmpty() == true)
+	{
+		cout << "\nList is empty" << endl;
+	}
+	Node* prev, * curr;
+	prev = curr = NULL;
+	cout << "\nEnter the roll number of the student whose record you want to search: ";
+	int num;
+	cin >> num;
+	if (search(num, &prev, &curr) == false)
+		cout << "\nRecord not found" << endl;
+	else
+	{
+		cout << "\nRecord found" << endl;
+		cout << "\nRoll number: " << curr->noMhs << endl;
+		cout << "\nName: " << curr->name << endl;
+	}
+}
+
+
+
